@@ -75,6 +75,7 @@ CharacterVector readLine(IntegerVector fileno) {
         }
         result += std::string(buf);
         if (result[result.length() - 1] == '\n') {
+            result.resize(result.length() - 1);
             return CharacterVector::create(result);
         }
     }
