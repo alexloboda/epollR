@@ -23,6 +23,7 @@ IntegerVector epollImpl() {
     return IntegerVector::create(efd);
 }
 
+//' @export
 // [[Rcpp::export]]
 void close_socket(IntegerVector fileno) {
     int fd = fileno[0];
@@ -30,7 +31,7 @@ void close_socket(IntegerVector fileno) {
 }
 
 // [[Rcpp::export]]
-IntegerVector socket(CharacterVector addr, CharacterVector port) {
+IntegerVector socket_create(CharacterVector addr, CharacterVector port) {
     std::string p(port[0]);
     std::string address(addr[0]);
 

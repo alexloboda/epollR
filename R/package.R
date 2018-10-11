@@ -3,13 +3,21 @@
 NULL
 
 #' @export
+socket <- function(hostname, port) {
+  structure(socket_create(hostname, port), class = "epoll_socket")
+}
+
+#' @export
 epoll <- function(delay = 0.1) {
   obj <- list()
   obj$fd <- epollImpl()
   obj$env <- new.env()
   obj$env$subscriptions <- c()
-  structure(obj, class = "epoll")
+  obj$env$open <- TRUE
   f <- function() {
+    if (!obj$env$open) {
+      return()
+    }
     socks <- epoll_wait(obj$fd)
     for (s in socks) {
       subscribe(obj$fd, s, unsubscribe = TRUE)
@@ -24,9 +32,21 @@ epoll <- function(delay = 0.1) {
     later::later(f, delay)
   }
   later::later(f, delay)
-  obj
+  structure(obj, class = "epoll")
 }
 
+#' @export
+close.epoll <- function(obj) {
+  obj$env$open <- FALSE
+  close_socket(obj$fd)
+}
+
+#' @export
+close.epoll_socket <- function(s) {
+  close_socket(s)
+}
+
+#' @export
 readLinePromise <- function(e, s) {
   f <- function(resolve, reject) {
     subscribe(e$fd, s, FALSE)

@@ -25,15 +25,15 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// socket
-IntegerVector socket(CharacterVector addr, CharacterVector port);
-RcppExport SEXP _epollPromise_socket(SEXP addrSEXP, SEXP portSEXP) {
+// socket_create
+IntegerVector socket_create(CharacterVector addr, CharacterVector port);
+RcppExport SEXP _epollPromise_socket_create(SEXP addrSEXP, SEXP portSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type addr(addrSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type port(portSEXP);
-    rcpp_result_gen = Rcpp::wrap(socket(addr, port));
+    rcpp_result_gen = Rcpp::wrap(socket_create(addr, port));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -86,7 +86,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_epollPromise_epollImpl", (DL_FUNC) &_epollPromise_epollImpl, 0},
     {"_epollPromise_close_socket", (DL_FUNC) &_epollPromise_close_socket, 1},
-    {"_epollPromise_socket", (DL_FUNC) &_epollPromise_socket, 2},
+    {"_epollPromise_socket_create", (DL_FUNC) &_epollPromise_socket_create, 2},
     {"_epollPromise_readLine", (DL_FUNC) &_epollPromise_readLine, 1},
     {"_epollPromise_writeLine", (DL_FUNC) &_epollPromise_writeLine, 2},
     {"_epollPromise_epoll_wait", (DL_FUNC) &_epollPromise_epoll_wait, 1},

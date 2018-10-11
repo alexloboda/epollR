@@ -5,12 +5,13 @@ epollImpl <- function() {
     .Call('_epollPromise_epollImpl', PACKAGE = 'epollPromise')
 }
 
+#' @export
 close_socket <- function(fileno) {
     invisible(.Call('_epollPromise_close_socket', PACKAGE = 'epollPromise', fileno))
 }
 
-socket <- function(addr, port) {
-    .Call('_epollPromise_socket', PACKAGE = 'epollPromise', addr, port)
+socket_create <- function(addr, port) {
+    .Call('_epollPromise_socket_create', PACKAGE = 'epollPromise', addr, port)
 }
 
 #' @export
