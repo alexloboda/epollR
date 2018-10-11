@@ -89,6 +89,9 @@ void writeLine(IntegerVector fileno, CharacterVector str) {
     size_t len = msg.length();
     while(true) {
         ssize_t sent = send(fd, buf, len, 0);
+        if (sent == 0) {
+            Rcpp::stop("Network error");
+        }
         len -= sent;
         buf += sent;
         if (len == 0) {
