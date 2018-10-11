@@ -68,7 +68,8 @@ CharacterVector readLine(IntegerVector fileno) {
     int fd = fileno[0];
     char buf[buf_size];
     while(true) {
-        ssize_t read = recv(fd, &buf, buf_size, 0);
+        ssize_t read = recv(fd, &buf, buf_size - 1, 0);
+        buf[read] = '\0';
         if (read == 0) {
             Rcpp::stop("Network error");
         }
