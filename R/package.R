@@ -25,9 +25,7 @@ epoll <- function(delay = 0.1) {
       fs <- obj$env$subscriptions[[fd]]
       obj$env$subscriptions[[fd]] <- NULL
       line <- readLine(s)
-      later::later(function(){
-        fs$resolve(line)
-      })
+      fs$resolve(line)
     }
     later::later(f, delay)
   }
